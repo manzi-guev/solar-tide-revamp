@@ -120,7 +120,7 @@ const SERVICES = [
 
 export function ServicesSection() {
   return (
-    <section id="services" className="bg-white py-24 md:py-[104px]">
+    <section id="services" className="bg-white py-16 md:py-24 lg:py-[104px]">
       <div className="wrap">
 
         <ScrollReveal className="max-w-[56ch] mb-14">

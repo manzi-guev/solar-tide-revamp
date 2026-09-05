@@ -1,7 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useInView } from 'motion/react'
+import { useRef, useEffect, useState } from 'react'
 import { cn } from '@/lib/cn'
 
 interface ScrollRevealProps {
@@ -19,30 +18,43 @@ export function ScrollReveal({
   delay = 0,
   duration = 0.6,
   direction = 'up',
-  amount = 0.15,
+  amount = 0.1,
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, amount })
+  const [inView, setInView] = useState(false)
 
-  const initial = {
-    opacity: 0,
-    y: direction === 'up'    ?  22 : 0,
-    x: direction === 'left'  ? -22 : direction === 'right' ? 22 : 0,
-  }
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+          io.disconnect()
+        }
+      },
+      { threshold: amount },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [amount])
+
+  const animName =
+    direction === 'left'  ? 'fadeRight' :
+    direction === 'right' ? 'fadeLeft'  :
+    direction === 'none'  ? 'fadeIn'    : 'fadeUp'
 
   return (
-    <motion.div
+    <div
       ref={ref}
       className={cn(className)}
-      initial={initial}
-      animate={inView ? { opacity: 1, y: 0, x: 0 } : initial}
-      transition={{
-        duration,
-        delay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
+      style={
+        inView
+          ? { animation: `${animName} ${duration}s ${delay}s cubic-bezier(0.22,1,0.36,1) both` }
+          : { opacity: 0 }
+      }
     >
       {children}
-    </motion.div>
+    </div>
   )
 }

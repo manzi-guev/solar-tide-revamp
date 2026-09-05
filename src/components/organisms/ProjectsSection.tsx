@@ -57,7 +57,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
   const items = projects && projects.length > 0 ? projects : FALLBACK_PROJECTS
 
   return (
-    <section id="projects" className="bg-ink text-sand py-24 md:py-[104px] relative overflow-hidden">
+    <section id="projects" className="bg-ink text-sand py-16 md:py-24 lg:py-[104px] relative overflow-hidden">
       {/* Subtle ambient glow */}
       <div
         aria-hidden="true"

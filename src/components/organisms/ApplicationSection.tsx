@@ -1,4 +1,45 @@
+'use client'
+
+import { useRef, useEffect } from 'react'
+import { animate, useInView } from 'motion/react'
 import { Eyebrow, Button, ScrollReveal } from '@/components/atoms'
+
+function CountUp({
+  to,
+  prefix = '',
+  suffix = '',
+  duration = 1.8,
+  delay = 0,
+}: {
+  to: number
+  prefix?: string
+  suffix?: string
+  duration?: number
+  delay?: number
+}) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-8% 0px' })
+
+  useEffect(() => {
+    if (!inView || !ref.current) return
+    const el = ref.current
+    const controls = animate(0, to, {
+      duration,
+      delay,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate(v) {
+        el.textContent = prefix + Math.round(v) + suffix
+      },
+    })
+    return () => controls.stop()
+  }, [inView, to, prefix, suffix, duration, delay])
+
+  return (
+    <span ref={ref}>
+      {prefix}0{suffix}
+    </span>
+  )
+}
 
 const STEPS = [
   {
@@ -19,19 +60,24 @@ const STEPS = [
 ] as const
 
 const METRICS = [
-  { value: '100%', label: 'Quality design'           },
-  { value: '97%',  label: 'Timely delivery'           },
-  { value: '92%',  label: 'Tech requests under 24 h'  },
+  { to: 100, prefix: '',  suffix: '%', label: 'Quality design'           },
+  { to: 97,  prefix: '',  suffix: '%', label: 'Timely delivery'           },
+  { to: 92,  prefix: '',  suffix: '%', label: 'Tech requests under 24 h'  },
+] as const
+
+const SUSTAIN = [
+  { to: 10, prefix: '+', suffix: '%', label: 'Hydro'       },
+  { to: 10, prefix: '+', suffix: '%', label: 'Wind & Solar' },
 ] as const
 
 export function ApplicationSection() {
   return (
     <>
       {/* ── How to become a client ── */}
-      <section id="apply" className="bg-sand py-24 md:py-[104px]">
+      <section id="apply" className="bg-sand py-16 md:py-24 lg:py-[104px]">
         <div className="wrap">
 
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-16 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-8 md:gap-16 items-start">
 
             {/* Left — copy */}
             <ScrollReveal>
@@ -77,7 +123,7 @@ export function ApplicationSection() {
       </section>
 
       {/* ── Why clients choose us ── */}
-      <section className="bg-ink-700 text-sand py-20">
+      <section className="bg-ink-700 text-sand py-14 md:py-20">
         <div className="wrap">
 
           <ScrollReveal className="mb-12">
@@ -90,17 +136,17 @@ export function ApplicationSection() {
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] gap-16 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] gap-8 md:gap-16 items-start">
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-px bg-slate/10 border border-slate/10">
-              {METRICS.map(({ value, label }, i) => (
-                <ScrollReveal key={label} delay={0.06 * i} className="bg-ink-700 p-8 text-center">
+              {METRICS.map(({ to, prefix, suffix, label }, i) => (
+                <ScrollReveal key={label} delay={0.06 * i} className="bg-ink-700 p-4 sm:p-8 text-center">
                   <div
                     className="font-display font-bold text-solar mb-2"
-                    style={{ fontSize: 'clamp(2rem, 3.5vw, 2.8rem)' }}
+                    style={{ fontSize: 'clamp(1.4rem, 3.5vw, 2.8rem)' }}
                   >
-                    {value}
+                    <CountUp to={to} prefix={prefix} suffix={suffix} delay={0.06 * i} />
                   </div>
                   <div className="font-display text-[0.76rem] font-medium uppercase tracking-[0.08em] text-slate">
                     {label}
@@ -119,13 +165,13 @@ export function ApplicationSection() {
                 </p>
               </div>
               <div className="flex gap-10">
-                {[['Hydro', '+10%'], ['Wind & Solar', '+10%']].map(([label, pct]) => (
+                {SUSTAIN.map(({ to, prefix, suffix, label }, i) => (
                   <div key={label}>
                     <span
                       className="font-display font-bold text-solar block"
-                      style={{ fontSize: 'clamp(1.8rem, 2.8vw, 2.4rem)' }}
+                      style={{ fontSize: 'clamp(1.4rem, 2.8vw, 2.4rem)' }}
                     >
-                      {pct}
+                      <CountUp to={to} prefix={prefix} suffix={suffix} delay={0.15 * i} />
                     </span>
                     <span className="font-display font-medium uppercase tracking-[0.08em] text-slate text-[0.76rem]">
                       {label}

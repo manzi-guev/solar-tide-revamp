@@ -76,21 +76,13 @@ export function Navbar() {
           </Dialog.Trigger>
 
           <Dialog.Portal>
-            <Dialog.Overlay className="fixed inset-0 z-40 bg-ink/70 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-200" />
+            <Dialog.Overlay className="fixed inset-0 z-40 bg-ink/70 backdrop-blur-sm data-[state=open]:animate-[fadeIn_0.25s_ease_both] data-[state=closed]:animate-[fadeOut_0.25s_ease_both]" />
             <Dialog.Content
-              className={cn(
-                'fixed right-0 top-0 z-50 h-full w-[300px] bg-ink border-l border-slate/15 p-6 flex flex-col',
-                'data-[state=open]:animate-in data-[state=closed]:animate-out',
-                'data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right duration-300',
-              )}
+              className="fixed right-0 top-0 z-50 h-full w-[300px] bg-ink border-l border-slate/15 p-6 flex flex-col data-[state=open]:animate-[slideInRight_0.45s_cubic-bezier(0.22,1,0.36,1)_both] data-[state=closed]:animate-[slideOutRight_0.35s_cubic-bezier(0.22,1,0.36,1)_both]"
             >
               <Dialog.Title className="sr-only">Navigation menu</Dialog.Title>
 
-              <div className="flex items-center justify-between mb-10">
-                <div className="flex items-center gap-2">
-                  <LogoMark />
-                  <span className="font-display font-bold text-sand text-[1rem]">Solar Tide</span>
-                </div>
+              <div className="flex justify-end mb-8">
                 <Dialog.Close asChild>
                   <button
                     className="text-slate hover:text-sand transition-colors p-1.5 focus-ring rounded-md"

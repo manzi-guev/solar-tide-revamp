@@ -2,7 +2,7 @@ import { Eyebrow, Button, ScrollReveal } from '@/components/atoms'
 
 export function MissionSection() {
   return (
-    <section id="mission" className="bg-ink-800 text-sand py-24 md:py-[104px] relative overflow-hidden">
+    <section id="mission" className="bg-ink-800 text-sand py-16 md:py-24 lg:py-[104px] relative overflow-hidden">
 
       {/* Subtle background glow */}
       <div
@@ -12,7 +12,7 @@ export function MissionSection() {
       />
 
       <div className="wrap relative z-[1]">
-        <div className="grid grid-cols-1 md:grid-cols-[0.85fr_1.15fr] gap-16 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-[0.85fr_1.15fr] gap-8 md:gap-16 items-start">
 
           {/* Left — label + headline */}
           <ScrollReveal>

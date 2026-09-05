@@ -2,7 +2,7 @@ import { Button, ScrollReveal } from '@/components/atoms'
 
 export function CtaSection() {
   return (
-    <section className="bg-ink py-24 text-center relative overflow-hidden">
+    <section className="bg-ink py-16 md:py-24 text-center relative overflow-hidden">
       {/* Glow */}
       <div
         aria-hidden="true"

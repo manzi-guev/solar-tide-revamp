@@ -8,6 +8,12 @@ interface Props {
   params: Promise<{ slug: string }>
 }
 
+export const dynamicParams = false
+
+export function generateStaticParams() {
+  return [{ slug: '_' }]
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   return { title: slug.replace(/-/g, ' ') }

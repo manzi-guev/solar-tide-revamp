@@ -135,17 +135,36 @@ export function Navbar() {
 }
 
 function LogoMark() {
+  // 16-point starburst (outerR=47, innerR=34, center=50,50, viewBox 0 0 100 100)
+  const burst = "M 50,3 L 56.6,16.7 L 68,6.6 L 68.9,21.7 L 83.2,16.8 L 78.3,31.1 L 93.4,32 L 83.4,43.4 L 97,50 L 83.4,56.6 L 93.4,68 L 78.3,68.9 L 83.2,83.2 L 68.9,78.3 L 68,93.4 L 56.6,83.4 L 50,97 L 43.4,83.4 L 32,93.4 L 31.1,78.3 L 16.8,83.2 L 21.7,68.9 L 6.6,68 L 16.7,56.6 L 3,50 L 16.7,43.4 L 6.6,32 L 21.7,31.1 L 16.8,16.8 L 31.1,21.7 L 32,6.6 L 43.4,16.7 Z"
   return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-      {/* Sun rays */}
-      <circle cx="11" cy="11" r="3.5" fill="#F2A63D" opacity="0.9" />
-      <line x1="11" y1="3"  x2="11" y2="5.5" stroke="#F2A63D" strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="11" y1="16.5" x2="11" y2="19" stroke="#F2A63D" strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="3"  y1="11" x2="5.5" y2="11" stroke="#F2A63D" strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="16.5" y1="11" x2="19" y2="11" stroke="#F2A63D" strokeWidth="1.4" strokeLinecap="round" />
-      {/* Tide wave */}
-      <path d="M2 17 Q5.5 14 9 17 T16 17 T22 17"
-        stroke="#2C8C89" strokeWidth="1.3" fill="none" strokeLinecap="round" />
+    <svg width="26" height="26" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+      <defs>
+        <clipPath id="lm-c">
+          <path d={burst} />
+        </clipPath>
+      </defs>
+      {/* Starburst — the sun, amber fill */}
+      <path d={burst} fill="#F2A63D" />
+      {/* Solar panel section — dark wedge + grid lines, clipped to starburst */}
+      <g clipPath="url(#lm-c)">
+        <path
+          d="M 56,4 C 36,22 36,42 50,50 C 64,58 64,78 44,96 L 100,96 L 100,4 Z"
+          fill="#0B1628"
+        />
+        <line x1="47" y1="32" x2="97" y2="32" stroke="#F2A63D" strokeWidth="4" />
+        <line x1="43" y1="46" x2="97" y2="46" stroke="#F2A63D" strokeWidth="4" />
+        <line x1="40" y1="60" x2="96" y2="60" stroke="#F2A63D" strokeWidth="4" />
+        <line x1="43" y1="74" x2="94" y2="74" stroke="#F2A63D" strokeWidth="4" />
+        <line x1="70" y1="19" x2="70" y2="89" stroke="#F2A63D" strokeWidth="2.5" opacity="0.55" />
+        <line x1="84" y1="19" x2="84" y2="89" stroke="#F2A63D" strokeWidth="2.5" opacity="0.55" />
+      </g>
+      {/* S-curve — the tide wave, white, on top */}
+      <path
+        d="M 44,88 C 24,72 36,60 50,50 C 64,40 76,28 56,12"
+        stroke="white" strokeWidth="6" fill="none" strokeLinecap="round"
+        clipPath="url(#lm-c)"
+      />
     </svg>
   )
 }

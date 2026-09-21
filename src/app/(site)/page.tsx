@@ -5,7 +5,6 @@ import {
   ServicesSection,
   ApplicationSection,
   ProjectsSection,
-  PositionSection,
   CtaSection,
 } from '@/components/organisms'
 
@@ -32,7 +31,6 @@ export default function HomePage() {
       <ServicesSection />
       <ApplicationSection />
       <ProjectsSection />
-      <PositionSection />
       <CtaSection />
     </>
   )

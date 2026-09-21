@@ -116,6 +116,30 @@ const SERVICES = [
       </svg>
     ),
   },
+  {
+    key: 'microgrids',
+    title: 'Rural Solar Microgrids',
+    subtitle: 'Design · Deploy · Connect',
+    description:
+      'Standalone generation and distribution for communities beyond the grid — sized for shared load, built for local operation and upkeep.',
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" className="w-full h-full">
+        <circle cx="20" cy="20" r="3" stroke="#F2A63D" strokeWidth="1.4" />
+        <circle cx="8"  cy="12" r="2" stroke="#F2A63D" strokeWidth="1.2" />
+        <circle cx="32" cy="12" r="2" stroke="#F2A63D" strokeWidth="1.2" />
+        <circle cx="8"  cy="28" r="2" stroke="#F2A63D" strokeWidth="1.2" />
+        <circle cx="32" cy="28" r="2" stroke="#F2A63D" strokeWidth="1.2" />
+        <line x1="10" y1="13" x2="17" y2="18" stroke="#F2A63D" strokeWidth="1.1" strokeLinecap="round" />
+        <line x1="30" y1="13" x2="23" y2="18" stroke="#F2A63D" strokeWidth="1.1" strokeLinecap="round" />
+        <line x1="10" y1="27" x2="17" y2="22" stroke="#F2A63D" strokeWidth="1.1" strokeLinecap="round" />
+        <line x1="30" y1="27" x2="23" y2="22" stroke="#F2A63D" strokeWidth="1.1" strokeLinecap="round" />
+        <path d="M6 8 Q8 5 10 8" stroke="#F2A63D" strokeWidth="1" strokeLinecap="round" fill="none" opacity="0.6" />
+        <path d="M30 8 Q32 5 34 8" stroke="#F2A63D" strokeWidth="1" strokeLinecap="round" fill="none" opacity="0.6" />
+        <path d="M6 24 Q8 21 10 24" stroke="#F2A63D" strokeWidth="1" strokeLinecap="round" fill="none" opacity="0.6" />
+        <path d="M30 24 Q32 21 34 24" stroke="#F2A63D" strokeWidth="1" strokeLinecap="round" fill="none" opacity="0.6" />
+      </svg>
+    ),
+  },
 ] as const
 
 export function ServicesSection() {
@@ -138,13 +162,11 @@ export function ServicesSection() {
           </p>
         </ScrollReveal>
 
-        {/* 7-item grid: 2 col → 3 col → last item centred */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {SERVICES.map((s, i) => (
             <ScrollReveal
               key={s.key}
               delay={0.06 * i}
-              className={i === 6 ? 'md:col-start-2' : ''}
             >
               <div className="bg-white border border-[#E5EAF0] rounded-xl p-7 flex flex-col gap-5 h-full group hover:border-solar/50 hover:shadow-[0_4px_24px_rgba(242,166,61,0.08)] transition-all duration-200">
                 {/* Icon */}

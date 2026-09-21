@@ -1,51 +1,10 @@
-'use client'
-
-import { useRef, useEffect } from 'react'
-import { animate, useInView } from 'motion/react'
 import { Eyebrow, Button, ScrollReveal } from '@/components/atoms'
-
-function CountUp({
-  to,
-  prefix = '',
-  suffix = '',
-  duration = 1.8,
-  delay = 0,
-}: {
-  to: number
-  prefix?: string
-  suffix?: string
-  duration?: number
-  delay?: number
-}) {
-  const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-8% 0px' })
-
-  useEffect(() => {
-    if (!inView || !ref.current) return
-    const el = ref.current
-    const controls = animate(0, to, {
-      duration,
-      delay,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate(v) {
-        el.textContent = prefix + Math.round(v) + suffix
-      },
-    })
-    return () => controls.stop()
-  }, [inView, to, prefix, suffix, duration, delay])
-
-  return (
-    <span ref={ref}>
-      {prefix}0{suffix}
-    </span>
-  )
-}
 
 const STEPS = [
   {
     n: '01',
     title: 'Tell us your location',
-    desc: 'Share your country and city so we can understand your grid, climate, and available incentives.',
+    desc: 'Share your country and city so we can understand your grid, climate, and site conditions.',
   },
   {
     n: '02',
@@ -57,17 +16,6 @@ const STEPS = [
     title: 'Send us your enquiry',
     desc: "Reach out by email or through our contact form. We'll follow up with your options and next steps.",
   },
-] as const
-
-const METRICS = [
-  { to: 100, prefix: '',  suffix: '%', label: 'Quality design'           },
-  { to: 97,  prefix: '',  suffix: '%', label: 'Timely delivery'           },
-  { to: 92,  prefix: '',  suffix: '%', label: 'Tech requests under 24 h'  },
-] as const
-
-const SUSTAIN = [
-  { to: 10, prefix: '+', suffix: '%', label: 'Hydro'       },
-  { to: 10, prefix: '+', suffix: '%', label: 'Wind & Solar' },
 ] as const
 
 export function ApplicationSection() {
@@ -86,14 +34,14 @@ export function ApplicationSection() {
                 className="font-display font-semibold text-ink leading-[1.2] max-w-[20ch] mb-5"
                 style={{ fontSize: 'clamp(1.75rem, 2.8vw, 2.3rem)' }}
               >
-                Does your home, business, or institution want clean power?
+                Ready to bring clean power to your home, business, or institution?
               </h2>
               <p className="text-[0.97rem] leading-[1.72] text-slate-900 max-w-[40ch] mb-8">
                 Apply in three simple steps — choose your offer and leave the rest to us.
                 We handle everything from feasibility through commissioning.
               </p>
               <Button href="/contact" variant="solid" size="md">
-                Apply now
+                Get Started
               </Button>
             </ScrollReveal>
 
@@ -122,63 +70,38 @@ export function ApplicationSection() {
         </div>
       </section>
 
-      {/* ── Why clients choose us ── */}
-      <section className="bg-ink-700 text-sand py-14 md:py-20">
+      {/* ── Why Solar Tide ── */}
+      <section className="bg-ink-700 text-sand py-16 md:py-24 lg:py-[104px]">
         <div className="wrap">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-8 md:gap-16 items-start">
 
-          <ScrollReveal className="mb-12">
-            <Eyebrow className="text-solar mb-4">Why clients choose us</Eyebrow>
-            <h2
-              className="font-display font-semibold leading-[1.2] max-w-[28ch]"
-              style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)' }}
-            >
-              We deliver on our promise: Energy everywhere.
-            </h2>
-          </ScrollReveal>
+            <ScrollReveal>
+              <Eyebrow className="text-solar mb-5">Why Solar Tide</Eyebrow>
+              <h2
+                className="font-display font-semibold leading-[1.18] max-w-[16ch]"
+                style={{ fontSize: 'clamp(1.75rem, 2.8vw, 2.3rem)' }}
+              >
+                Grounded in the grid, not just the panel.
+              </h2>
+            </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] gap-8 md:gap-16 items-start">
-
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-px bg-slate/10 border border-slate/10">
-              {METRICS.map(({ to, prefix, suffix, label }, i) => (
-                <ScrollReveal key={label} delay={0.06 * i} className="bg-ink-700 p-4 sm:p-8 text-center">
-                  <div
-                    className="font-display font-bold text-solar mb-2"
-                    style={{ fontSize: 'clamp(1.4rem, 3.5vw, 2.8rem)' }}
-                  >
-                    <CountUp to={to} prefix={prefix} suffix={suffix} delay={0.06 * i} />
-                  </div>
-                  <div className="font-display text-[0.76rem] font-medium uppercase tracking-[0.08em] text-slate">
-                    {label}
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-
-            {/* Sustainability callout */}
-            <ScrollReveal className="flex flex-col gap-6">
-              <div>
-                <Eyebrow className="text-tide mb-3">Sustainability matters</Eyebrow>
-                <p className="text-[0.97rem] leading-[1.72] text-[#C7D2DC] max-w-[38ch]">
-                  Paving the way for sustainable energy — delivering it from hydro, wind,
-                  and solar, with constant monitoring and improvement.
-                </p>
-              </div>
-              <div className="flex gap-10">
-                {SUSTAIN.map(({ to, prefix, suffix, label }, i) => (
-                  <div key={label}>
-                    <span
-                      className="font-display font-bold text-solar block"
-                      style={{ fontSize: 'clamp(1.4rem, 2.8vw, 2.4rem)' }}
-                    >
-                      <CountUp to={to} prefix={prefix} suffix={suffix} delay={0.15 * i} />
-                    </span>
-                    <span className="font-display font-medium uppercase tracking-[0.08em] text-slate text-[0.76rem]">
-                      {label}
-                    </span>
-                  </div>
-                ))}
-              </div>
+            <ScrollReveal delay={0.1} className="flex flex-col gap-5 text-[0.98rem] leading-[1.78] text-[#C7D2DC]">
+              <p>
+                Solar generation only pays off when it is engineered against the realities
+                of the grid it feeds into — voltage limits, protection settings, and the
+                load it is actually meant to serve.{' '}
+                <strong className="text-sand font-semibold">
+                  Solar Tide brings power-systems discipline to solar delivery
+                </strong>
+                , so every system we design is sized and specified for how it will actually
+                behave once it is live.
+              </p>
+              <p>
+                We work directly with homeowners and businesses on installed systems, and
+                alongside developers, utilities, and public agencies on the advisory side —
+                feasibility studies, interconnection reviews, and audits that inform real
+                investment decisions.
+              </p>
             </ScrollReveal>
 
           </div>

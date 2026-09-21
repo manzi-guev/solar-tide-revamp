@@ -157,10 +157,8 @@ function StarField() {
 }
 
 const STATS = [
-  { label: 'Nations',   value: '5 · 3 continents' },
-  { label: 'Serving',   value: 'Residential & C&I' },
-  { label: 'On time',   value: '97%'               },
-  { label: 'Quality',   value: '100%'               },
+  { label: 'Reach',   value: 'Multinational'              },
+  { label: 'Serving', value: 'Residential, C&I & Microgrids' },
 ] as const
 
 const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)'
@@ -200,38 +198,35 @@ export function Hero() {
               className="text-[1rem] leading-relaxed text-slate max-w-[44ch] mt-5"
               style={{ animation: fadeIn('0.28s') }}
             >
-              Surya Pasang (Solar Tide) is a multinational, full-service renewable
-              energy company. We design, build, and advise on power systems across
-              Rwanda and the wider region — from rooftop arrays to grid-level
+              Surya Pasang (Solar Tide) is a multinational renewable energy company
+              operating across five countries on three continents. We design, build,
+              and advise on power systems, from rooftop arrays to grid-level
               consultancy.
             </p>
           </div>
 
-          <div className="hidden md:flex items-start justify-center pt-10">
+          <div className="hidden md:flex flex-col items-center pt-10">
             <SolarSystem />
+            <div
+              className="flex gap-10 mt-4"
+              style={{ animation: fadeIn('0.55s') }}
+            >
+              {STATS.map((s) => (
+                <div key={s.label} className="text-center">
+                  <div className="font-display text-slate text-[0.62rem] uppercase tracking-[0.1em] mb-1">{s.label}</div>
+                  <div className="font-display font-bold text-solar text-[0.95rem] leading-none">{s.value}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="flex items-center justify-between mt-4 md:mt-6 pb-2 md:pb-4">
-          <div
-            className="flex flex-wrap gap-3"
-            style={{ animation: fadeIn('0.38s') }}
-          >
-            <Button href="/contact" variant="solid" size="md">Become a client</Button>
-            <Button href="/#services" variant="ghost" size="md">Our services</Button>
-          </div>
-
-          <div
-            className="hidden md:flex gap-8"
-            style={{ animation: fadeIn('0.55s') }}
-          >
-            {STATS.map((s) => (
-              <div key={s.label} className="text-right">
-                <div className="font-display font-bold text-solar text-[0.95rem] leading-none mb-1">{s.value}</div>
-                <div className="font-display text-slate text-[0.62rem] uppercase tracking-[0.1em]">{s.label}</div>
-              </div>
-            ))}
-          </div>
+        <div
+          className="flex flex-wrap gap-3 mt-6 pb-2 md:pb-4"
+          style={{ animation: fadeIn('0.38s') }}
+        >
+          <Button href="/contact" variant="solid" size="md">Request a Site Assessment</Button>
+          <Button href="/#services" variant="ghost" size="md">Our services</Button>
         </div>
       </div>
 

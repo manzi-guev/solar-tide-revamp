@@ -1,10 +1,10 @@
-import { Eyebrow, Button, ScrollReveal } from '@/components/atoms'
+import { Eyebrow, ScrollReveal } from '@/components/atoms'
 
 const SERVICES = [
   {
     key: 'residential',
     title: 'Residential & C&I Solar Systems',
-    tag: 'Design · Install · Commission',
+    subtitle: 'Design · Install · Commission',
     description:
       'Rooftop and ground-mount PV sized for homes, offices, and industrial sites — from load study through design, installation, and commissioning.',
     icon: (
@@ -19,7 +19,7 @@ const SERVICES = [
   {
     key: 'consultancy',
     title: 'Power & Solar Consultancy',
-    tag: 'Feasibility · Interconnection · Advisory',
+    subtitle: 'Feasibility · Interconnection · Advisory',
     description:
       'Technical advisory on feasibility, grid interconnection, system design review, and regulatory navigation for power and solar projects.',
     icon: (
@@ -32,7 +32,7 @@ const SERVICES = [
   {
     key: 'audits',
     title: 'Energy Audits',
-    tag: 'Assess · Profile · Recommend',
+    subtitle: 'Assess · Profile · Recommend',
     description:
       'Site assessment and load profiling that shows where energy is wasted, so you can cut consumption before you spend on new generation.',
     icon: (
@@ -45,7 +45,7 @@ const SERVICES = [
   {
     key: 'microgrids',
     title: 'Rural Solar Microgrids',
-    tag: 'Design · Deploy · Connect',
+    subtitle: 'Design · Deploy · Connect',
     description:
       'Standalone generation and distribution for communities beyond the grid — sized for shared load, built for local operation and upkeep.',
     icon: (
@@ -70,33 +70,35 @@ const SERVICES = [
 
 export function ServicesSection() {
   return (
-    <section id="services" className="bg-sand py-16 md:py-24 lg:py-[104px]">
+    <section id="services" className="bg-white py-16 md:py-24 lg:py-[104px]">
       <div className="wrap">
 
         <ScrollReveal className="max-w-[56ch] mb-14">
           <Eyebrow className="text-solar-dim mb-4">What we do</Eyebrow>
           <h2
-            className="font-display font-semibold text-ink"
-            style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', lineHeight: 1.15 }}
+            className="font-display font-semibold text-ink mb-4"
+            style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)' }}
           >
             Four ways we work with you, from rooftop to regulator.
           </h2>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 border border-sand-dim bg-sand-dim gap-[1px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {SERVICES.map((s, i) => (
-            <ScrollReveal key={s.key} delay={0.07 * i}>
-              <div className="bg-sand p-9 flex flex-col h-full hover:bg-[#fdfcf9] transition-colors duration-200">
-                <div className="w-10 h-10 mb-7 shrink-0">{s.icon}</div>
-                <h3 className="font-display font-semibold text-ink text-[1.15rem] leading-[1.3] mb-3">
-                  {s.title}
-                </h3>
-                <p className="text-[0.95rem] leading-[1.65] text-[#4A5A6A] mb-5 flex-1">
-                  {s.description}
-                </p>
-                <p className="font-mono text-[0.72rem] tracking-[0.06em] uppercase text-tide mt-auto">
-                  {s.tag}
-                </p>
+            <ScrollReveal key={s.key} delay={0.06 * i}>
+              <div className="bg-white border border-[#E5EAF0] rounded-xl p-7 flex flex-col gap-5 h-full group hover:border-solar/50 hover:shadow-[0_4px_24px_rgba(242,166,61,0.08)] transition-all duration-200">
+                <div className="w-10 h-10 shrink-0">{s.icon}</div>
+                <div className="flex flex-col gap-2 flex-1">
+                  <h3 className="font-display font-semibold text-ink text-[1rem] leading-[1.3]">
+                    {s.title}
+                  </h3>
+                  <p className="font-display font-semibold text-solar text-[0.77rem] leading-none">
+                    {s.subtitle}
+                  </p>
+                  <p className="text-[0.87rem] leading-[1.68] text-slate-500 mt-1">
+                    {s.description}
+                  </p>
+                </div>
               </div>
             </ScrollReveal>
           ))}

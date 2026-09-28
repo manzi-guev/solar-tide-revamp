@@ -9,10 +9,11 @@ import { Button } from '@/components/atoms'
 import { cn } from '@/lib/cn'
 
 const NAV_LINKS = [
-  { href: '/projects', label: 'Projects' },
-  { href: '/about',    label: 'About'    },
-  { href: '/news',     label: 'News'     },
-  { href: '/contact',  label: 'Contact'  },
+  { href: '/#services', label: 'Services' },
+  { href: '/projects',  label: 'Projects' },
+  { href: '/about',     label: 'About'    },
+  { href: '/news',      label: 'News'     },
+  { href: '/contact',   label: 'Contact'  },
 ] as const
 
 function isActive(href: string, pathname: string) {

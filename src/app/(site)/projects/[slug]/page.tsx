@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { Eyebrow, Button, Badge } from '@/components/atoms'
+import { Eyebrow, Button, Badge, PortableTextBody } from '@/components/atoms'
+import { sanityFetch } from '@/sanity/lib/client'
+import { projectBySlugQuery, projectSlugsQuery } from '@/sanity/queries'
 import { PROJECT_TYPE_LABELS, type Project } from '@/types'
 import { formatDate } from '@/lib/utils'
 
@@ -9,48 +11,38 @@ interface Props {
   params: Promise<{ slug: string }>
 }
 
-export const dynamicParams = false
-
-export function generateStaticParams() {
-  return [{ slug: '_' }]
+export async function generateStaticParams() {
+  const slugs = await sanityFetch<{ slug: string }[]>({
+    query: projectSlugsQuery,
+    revalidate: false,
+  })
+  return slugs.map(({ slug }) => ({ slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
+  const project = await sanityFetch<Project | null>({
+    query: projectBySlugQuery,
+    params: { slug },
+    tags: ['project'],
+  })
   return {
-    title: slug.replace(/-/g, ' '),
-    description: 'Solar Tide project case study.',
+    title: project?.title ?? slug.replace(/-/g, ' '),
+    description: project?.client
+      ? `${project.title} — Solar Tide project for ${project.client}.`
+      : 'Solar Tide project case study.',
   }
 }
 
 export default async function ProjectDetailPage({ params }: Props) {
   const { slug } = await params
+  const project = await sanityFetch<Project | null>({
+    query: projectBySlugQuery,
+    params: { slug },
+    tags: ['project'],
+  })
 
-  /*
-   * TODO: Fetch from Sanity when connected.
-   * const project = await sanityFetch<Project>({
-   *   query: projectBySlugQuery,
-   *   params: { slug },
-   *   tags: [`project:${slug}`],
-   * })
-   * if (!project) notFound()
-   */
-
-  /* Placeholder — remove once Sanity is wired */
-  const project: Project = {
-    _id: slug,
-    title: slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
-    slug: { current: slug },
-    type: 'commercial',
-    date: '2025-01-01',
-    client: 'Placeholder client',
-    location: { city: 'Kigali', country: 'Rwanda' },
-    stats: [
-      { label: 'Capacity',  value: '— kWp' },
-      { label: 'Duration',  value: '— months' },
-      { label: 'Outcome',   value: '—' },
-    ],
-  }
+  if (!project) notFound()
 
   return (
     <>
@@ -72,8 +64,10 @@ export default async function ProjectDetailPage({ params }: Props) {
               <span className="font-mono text-[0.72rem] text-slate">{formatDate(project.date)}</span>
             )}
           </div>
-          <h1 className="font-display font-semibold text-sand leading-[1.1] mb-4"
-              style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)' }}>
+          <h1
+            className="font-display font-semibold text-sand leading-[1.1] mb-4"
+            style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)' }}
+          >
             {project.title}
           </h1>
           {project.location && (
@@ -101,13 +95,17 @@ export default async function ProjectDetailPage({ params }: Props) {
       {/* Body */}
       <section className="bg-sand py-16">
         <div className="wrap max-w-[680px]">
-          <p className="text-slate-700 text-[0.9rem] italic border border-sand-dim bg-white p-4 mb-8">
-            Project description is managed via Sanity CMS. Add content for this project
-            in the studio and it will appear here automatically.
-          </p>
-          <Button href="/projects" variant="outline" size="md">
-            ← Back to projects
-          </Button>
+          {project.body ? (
+            <PortableTextBody value={project.body} />
+          ) : (
+            <p className="text-slate-500 text-[0.9rem] italic">
+              No description added yet. Edit this project in the{' '}
+              <a href="/studio" className="text-solar underline">Sanity Studio</a>.
+            </p>
+          )}
+          <div className="mt-10">
+            <Button href="/projects" variant="outline" size="md">← Back to projects</Button>
+          </div>
         </div>
       </section>
     </>

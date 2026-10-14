@@ -1,6 +1,11 @@
 import type { Metadata } from 'next'
-import { Eyebrow, Button, ScrollReveal } from '@/components/atoms'
+import Image from 'next/image'
+import { Eyebrow, ScrollReveal } from '@/components/atoms'
 import { CtaSection } from '@/components/organisms'
+import { sanityFetch } from '@/sanity/lib/client'
+import { teamQuery } from '@/sanity/queries'
+import { urlFor } from '@/sanity/lib/image'
+import type { TeamMember } from '@/types'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -35,7 +40,12 @@ const STATS = [
   { label: 'Continents',                 value: '3'    },
 ] as const
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const team = await sanityFetch<TeamMember[]>({
+    query: teamQuery,
+    tags: ['teamMember'],
+  })
+
   return (
     <>
       {/* Hero */}
@@ -171,6 +181,71 @@ export default function AboutPage() {
               ))}
             </div>
           </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Team */}
+      <section className="bg-sand py-20">
+        <div className="wrap">
+          <ScrollReveal className="mb-12">
+            <Eyebrow className="text-solar-dim mb-4">The team</Eyebrow>
+            <h2 className="font-display font-semibold text-ink text-[1.6rem] max-w-[28ch]">
+              Engineers and technicians across three continents.
+            </h2>
+          </ScrollReveal>
+
+          {team.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+              {team.map((member, i) => (
+                <ScrollReveal key={member._id} delay={0.06 * i}>
+                  <div className="flex flex-col">
+                    {member.photo ? (
+                      <div className="w-full aspect-square mb-4 overflow-hidden bg-ink-700">
+                        <Image
+                          src={urlFor(member.photo).width(400).height(400).url()}
+                          alt={member.name}
+                          width={400}
+                          height={400}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-full aspect-square mb-4 bg-ink-700 flex items-center justify-center">
+                        <span className="font-display font-semibold text-sand/40 text-[2rem]">
+                          {member.name.charAt(0)}
+                        </span>
+                      </div>
+                    )}
+                    <h3 className="font-display font-semibold text-ink text-[1rem] mb-0.5">{member.name}</h3>
+                    {member.role && (
+                      <p className="font-mono text-[0.72rem] uppercase tracking-[0.05em] text-solar-dim mb-2">{member.role}</p>
+                    )}
+                    {member.bio && (
+                      <p className="text-[0.85rem] leading-[1.65] text-slate-900">{member.bio}</p>
+                    )}
+                    {member.linkedin && (
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 font-mono text-[0.72rem] text-tide hover:text-tide-dim transition-colors"
+                      >
+                        LinkedIn →
+                      </a>
+                    )}
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          ) : (
+            <div className="py-12 text-center">
+              <p className="text-slate-700 text-[0.95rem]">
+                Add team members in the{' '}
+                <a href="/studio" className="text-solar underline">Sanity Studio</a>{' '}
+                and they will appear here.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

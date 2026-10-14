@@ -7,6 +7,9 @@ import {
   ProjectsSection,
   CtaSection,
 } from '@/components/organisms'
+import { sanityFetch } from '@/sanity/lib/client'
+import { featuredProjectsQuery } from '@/sanity/queries'
+import type { Project } from '@/types'
 
 export const metadata: Metadata = {
   title: 'Solar Tide — Power & Solar, East Africa',
@@ -14,15 +17,11 @@ export const metadata: Metadata = {
     'Solar Tide designs, builds, and advises on power systems across Rwanda and the wider region — from rooftop solar to grid-level consultancy.',
 }
 
-export default function HomePage() {
-  /*
-   * TODO: Uncomment when Sanity is connected.
-   *
-   * const [services, projects] = await Promise.all([
-   *   sanityFetch<Service[]>({ query: servicesQuery, tags: ['service'] }),
-   *   sanityFetch<Project[]>({ query: featuredProjectsQuery, tags: ['project'] }),
-   * ])
-   */
+export default async function HomePage() {
+  const projects = await sanityFetch<Project[]>({
+    query: featuredProjectsQuery,
+    tags: ['project'],
+  })
 
   return (
     <>
@@ -30,7 +29,7 @@ export default function HomePage() {
       <MissionSection />
       <ServicesSection />
       <ApplicationSection />
-      <ProjectsSection />
+      <ProjectsSection projects={projects} />
       <CtaSection />
     </>
   )

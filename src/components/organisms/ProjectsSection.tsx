@@ -91,9 +91,6 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           <Button href="/projects" variant="ghost" size="md">
             View all projects →
           </Button>
-          <span className="font-mono text-[0.76rem] text-slate/60 hidden md:inline">
-            Placeholder entries — replace via Sanity CMS
-          </span>
         </ScrollReveal>
 
       </div>

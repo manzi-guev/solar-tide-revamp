@@ -9,6 +9,7 @@ export const servicesQuery = groq`
     tag,
     features,
     ctaLabel,
+    iconType,
     order,
   }
 `

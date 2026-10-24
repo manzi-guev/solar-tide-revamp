@@ -93,6 +93,8 @@ export interface Post {
   body?: PortableTextBlock[]
 }
 
+export type ServiceIconType = 'residential' | 'consultancy' | 'audits' | 'microgrids'
+
 export interface Service {
   _id: string
   title: string
@@ -101,6 +103,7 @@ export interface Service {
   tag?: string
   features?: string[]
   ctaLabel?: string
+  iconType?: ServiceIconType
   order?: number
 }
 

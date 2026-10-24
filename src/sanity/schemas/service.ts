@@ -44,6 +44,20 @@ export const service = defineType({
     }),
     defineField({ name: 'ctaLabel', title: 'CTA Button Label', type: 'string' }),
     defineField({
+      name: 'iconType',
+      title: 'Icon',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Solar Panels (grid)',    value: 'residential' },
+          { title: 'Clock / Advisory',       value: 'consultancy' },
+          { title: 'Document / Audit',       value: 'audits'      },
+          { title: 'Microgrid / Network',    value: 'microgrids'  },
+        ],
+        layout: 'radio',
+      },
+    }),
+    defineField({
       name: 'order',
       title: 'Sort Order',
       type: 'number',

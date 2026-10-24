@@ -23,7 +23,7 @@ const FILTERS = [
 export default async function ProjectsPage() {
   const projects = await sanityFetch<Project[]>({
     query: projectsQuery,
-    revalidate: 60,
+    revalidate: 30,
   })
 
   return (

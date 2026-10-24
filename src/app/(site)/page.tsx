@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const [projects, services] = await Promise.all([
-    sanityFetch<Project[]>({ query: featuredProjectsQuery, revalidate: 60 }),
-    sanityFetch<Service[]>({ query: servicesQuery, revalidate: 60 }),
+    sanityFetch<Project[]>({ query: featuredProjectsQuery, revalidate: 30 }),
+    sanityFetch<Service[]>({ query: servicesQuery, revalidate: 30 }),
   ])
 
   return (

@@ -43,7 +43,7 @@ const STATS = [
 export default async function AboutPage() {
   const team = await sanityFetch<TeamMember[]>({
     query: teamQuery,
-    revalidate: 60,
+    revalidate: 30,
   })
 
   return (

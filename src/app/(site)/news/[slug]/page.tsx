@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await sanityFetch<Post | null>({
     query: postBySlugQuery,
     params: { slug },
-    revalidate: 60,
+    revalidate: 30,
   })
   return {
     title: post?.title ?? slug.replace(/-/g, ' '),
@@ -40,7 +40,7 @@ export default async function NewsArticlePage({ params }: Props) {
   const post = await sanityFetch<Post | null>({
     query: postBySlugQuery,
     params: { slug },
-    revalidate: 60,
+    revalidate: 30,
   })
 
   if (!post) notFound()

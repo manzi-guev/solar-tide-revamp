@@ -36,10 +36,11 @@ export function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2.5 font-display font-bold text-[1.15rem] text-sand tracking-[0.01em] focus-ring group"
+          className="flex items-center gap-2 font-display font-bold text-[1.15rem] text-sand tracking-[0.01em] focus-ring group"
         >
+          <span className="transition-colors group-hover:text-solar">Solar</span>
           <LogoMark />
-          <span className="transition-colors group-hover:text-solar">Solar Tide</span>
+          <span className="transition-colors group-hover:text-solar">Tide</span>
         </Link>
 
         {/* Desktop links */}

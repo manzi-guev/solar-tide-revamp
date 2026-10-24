@@ -145,25 +145,25 @@ function LogoMark() {
           <path d={burst} />
         </clipPath>
       </defs>
-      {/* Starburst — the sun, amber fill */}
-      <path d={burst} fill="#F2A63D" />
-      {/* Solar panel section — dark wedge + grid lines, clipped to starburst */}
+      {/* Starburst — sand/white on dark navbar */}
+      <path d={burst} fill="#F1EAD8" />
+      {/* Solar panel section — ink wedge creates panel silhouette */}
       <g clipPath="url(#lm-c)">
         <path
           d="M 56,4 C 36,22 36,42 50,50 C 64,58 64,78 44,96 L 100,96 L 100,4 Z"
           fill="#0B1628"
         />
-        <line x1="47" y1="32" x2="97" y2="32" stroke="#F2A63D" strokeWidth="4" />
-        <line x1="43" y1="46" x2="97" y2="46" stroke="#F2A63D" strokeWidth="4" />
-        <line x1="40" y1="60" x2="96" y2="60" stroke="#F2A63D" strokeWidth="4" />
-        <line x1="43" y1="74" x2="94" y2="74" stroke="#F2A63D" strokeWidth="4" />
-        <line x1="70" y1="19" x2="70" y2="89" stroke="#F2A63D" strokeWidth="2.5" opacity="0.55" />
-        <line x1="84" y1="19" x2="84" y2="89" stroke="#F2A63D" strokeWidth="2.5" opacity="0.55" />
+        <line x1="47" y1="32" x2="97" y2="32" stroke="#F1EAD8" strokeWidth="4" />
+        <line x1="43" y1="46" x2="97" y2="46" stroke="#F1EAD8" strokeWidth="4" />
+        <line x1="40" y1="60" x2="96" y2="60" stroke="#F1EAD8" strokeWidth="4" />
+        <line x1="43" y1="74" x2="94" y2="74" stroke="#F1EAD8" strokeWidth="4" />
+        <line x1="70" y1="19" x2="70" y2="89" stroke="#F1EAD8" strokeWidth="2.5" opacity="0.55" />
+        <line x1="84" y1="19" x2="84" y2="89" stroke="#F1EAD8" strokeWidth="2.5" opacity="0.55" />
       </g>
-      {/* S-curve — the tide wave, white, on top */}
+      {/* S-curve — the tide wave */}
       <path
         d="M 44,88 C 24,72 36,60 50,50 C 64,40 76,28 56,12"
-        stroke="white" strokeWidth="6" fill="none" strokeLinecap="round"
+        stroke="#0B1628" strokeWidth="6" fill="none" strokeLinecap="round"
         clipPath="url(#lm-c)"
       />
     </svg>

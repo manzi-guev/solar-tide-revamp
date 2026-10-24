@@ -14,8 +14,6 @@ interface Props {
   params: Promise<{ slug: string }>
 }
 
-export const dynamicParams = false
-
 export async function generateStaticParams() {
   const slugs = await sanityFetch<{ slug: string }[]>({
     query: postSlugsQuery,
@@ -29,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await sanityFetch<Post | null>({
     query: postBySlugQuery,
     params: { slug },
-    tags: ['post'],
+    revalidate: 60,
   })
   return {
     title: post?.title ?? slug.replace(/-/g, ' '),
@@ -42,7 +40,7 @@ export default async function NewsArticlePage({ params }: Props) {
   const post = await sanityFetch<Post | null>({
     query: postBySlugQuery,
     params: { slug },
-    tags: ['post'],
+    revalidate: 60,
   })
 
   if (!post) notFound()

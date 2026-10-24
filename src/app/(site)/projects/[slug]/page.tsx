@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = await sanityFetch<Project | null>({
     query: projectBySlugQuery,
     params: { slug },
-    tags: ['project'],
+    revalidate: 60,
   })
   return {
     title: project?.title ?? slug.replace(/-/g, ' '),
@@ -39,7 +39,7 @@ export default async function ProjectDetailPage({ params }: Props) {
   const project = await sanityFetch<Project | null>({
     query: projectBySlugQuery,
     params: { slug },
-    tags: ['project'],
+    revalidate: 60,
   })
 
   if (!project) notFound()

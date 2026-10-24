@@ -16,7 +16,7 @@ const TAGS = ['All', 'Solar', 'Storage', 'Consultancy', 'Company', 'Industry'] a
 export default async function NewsPage() {
   const posts = await sanityFetch<Post[]>({
     query: postsQuery,
-    tags: ['post'],
+    revalidate: 60,
   })
 
   return (

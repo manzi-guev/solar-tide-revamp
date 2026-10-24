@@ -3,8 +3,8 @@ import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { schema } from '@/sanity/schemas'
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'rxi61ihl'
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
+const projectId = 'rxi61ihl'
+const dataset = 'production'
 
 export default defineConfig({
   name: 'solar-tide',

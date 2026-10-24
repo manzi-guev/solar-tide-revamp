@@ -1,7 +1,8 @@
+import type { ReactElement } from 'react'
 import { Eyebrow, ScrollReveal } from '@/components/atoms'
 import type { Service, ServiceIconType } from '@/types'
 
-const ICONS: Record<ServiceIconType, JSX.Element> = {
+const ICONS: Record<ServiceIconType, ReactElement> = {
   residential: (
     <svg viewBox="0 0 40 40" fill="none" className="w-full h-full">
       <rect x="6"  y="6"  width="12" height="12" stroke="#F2A63D" strokeWidth="1.4" />
